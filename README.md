@@ -1,6 +1,6 @@
 # flutter_android_speech_to_text
 
-A new Flutter plugin project.
+Flutter Plugin to Show Speech To Text Pop Up Dialog for Android
 
 ## Getting Started
 
