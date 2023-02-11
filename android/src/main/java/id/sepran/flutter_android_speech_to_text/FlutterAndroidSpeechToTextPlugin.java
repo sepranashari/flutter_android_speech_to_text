@@ -95,8 +95,6 @@ public class FlutterAndroidSpeechToTextPlugin implements FlutterPlugin, Activity
         // Get the results
         ArrayList<String> hasilList = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
 
-        //flutterEventChannelResult.success(true);
-        //flutterEventChannelResult = null;
         try{
           flutterResult.success(hasilList.get(0));
         }catch(Exception e){}
