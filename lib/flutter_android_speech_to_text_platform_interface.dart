@@ -8,7 +8,8 @@ abstract class FlutterAndroidSpeechToTextPlatform extends PlatformInterface {
 
   static final Object _token = Object();
 
-  static FlutterAndroidSpeechToTextPlatform _instance = MethodChannelFlutterAndroidSpeechToText();
+  static FlutterAndroidSpeechToTextPlatform _instance =
+      MethodChannelFlutterAndroidSpeechToText();
 
   /// The default instance of [FlutterAndroidSpeechToTextPlatform] to use.
   ///
@@ -25,5 +26,9 @@ abstract class FlutterAndroidSpeechToTextPlatform extends PlatformInterface {
 
   Future<String?> getPlatformVersion() {
     throw UnimplementedError('platformVersion() has not been implemented.');
+  }
+
+  Future<String?> getSpeechToText(String language) {
+    throw UnimplementedError('getSpeechToText() has not been implemented.');
   }
 }

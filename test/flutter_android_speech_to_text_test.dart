@@ -7,21 +7,30 @@ import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 class MockFlutterAndroidSpeechToTextPlatform
     with MockPlatformInterfaceMixin
     implements FlutterAndroidSpeechToTextPlatform {
-
   @override
   Future<String?> getPlatformVersion() => Future.value('42');
+
+  @override
+  Future<String?> getSpeechToText(String language) {
+    // TODO: implement getSpeechToText
+    throw UnimplementedError();
+  }
 }
 
 void main() {
-  final FlutterAndroidSpeechToTextPlatform initialPlatform = FlutterAndroidSpeechToTextPlatform.instance;
+  final FlutterAndroidSpeechToTextPlatform initialPlatform =
+      FlutterAndroidSpeechToTextPlatform.instance;
 
   test('$MethodChannelFlutterAndroidSpeechToText is the default instance', () {
-    expect(initialPlatform, isInstanceOf<MethodChannelFlutterAndroidSpeechToText>());
+    expect(initialPlatform,
+        isInstanceOf<MethodChannelFlutterAndroidSpeechToText>());
   });
 
   test('getPlatformVersion', () async {
-    FlutterAndroidSpeechToText flutterAndroidSpeechToTextPlugin = FlutterAndroidSpeechToText();
-    MockFlutterAndroidSpeechToTextPlatform fakePlatform = MockFlutterAndroidSpeechToTextPlatform();
+    FlutterAndroidSpeechToText flutterAndroidSpeechToTextPlugin =
+        FlutterAndroidSpeechToText();
+    MockFlutterAndroidSpeechToTextPlatform fakePlatform =
+        MockFlutterAndroidSpeechToTextPlatform();
     FlutterAndroidSpeechToTextPlatform.instance = fakePlatform;
 
     expect(await flutterAndroidSpeechToTextPlugin.getPlatformVersion(), '42');
