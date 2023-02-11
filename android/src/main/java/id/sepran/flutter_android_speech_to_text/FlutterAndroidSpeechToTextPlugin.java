@@ -65,10 +65,6 @@ public class FlutterAndroidSpeechToTextPlugin implements FlutterPlugin, Activity
 
   @Override
   public void onMethodCall(@NonNull MethodCall call, @NonNull Result result) {
-    if (call.method.equals("getPlatformVersion")) {
-      result.success("Android " + android.os.Build.VERSION.RELEASE);
-      return;
-    }
     if (call.method.equalsIgnoreCase("getSpeechToText")) {
       flutterResult = result;
       final String language = call.argument("language");
@@ -104,9 +100,6 @@ public class FlutterAndroidSpeechToTextPlugin implements FlutterPlugin, Activity
           flutterResult.success(resultList.get(0));
         }catch(Exception e){}
         return true;
-        //sendResults();
-      } else {
-
       }
     }
     return false;
