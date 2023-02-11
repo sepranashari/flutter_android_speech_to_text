@@ -7,6 +7,7 @@ import android.speech.RecognizerIntent;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
 
@@ -43,21 +44,23 @@ public class FlutterAndroidSpeechToTextPlugin implements FlutterPlugin, Activity
   @Override
   public void onAttachedToActivity(@NonNull ActivityPluginBinding binding) {
     activity = binding.getActivity();
+    binding.addActivityResultListener(this);
   }
 
   @Override
   public void onDetachedFromActivityForConfigChanges() {
-
+    activity = null;
   }
 
   @Override
   public void onReattachedToActivityForConfigChanges(@NonNull ActivityPluginBinding binding) {
-
+    activity = binding.getActivity();
+    binding.addActivityResultListener(this);
   }
 
   @Override
   public void onDetachedFromActivity() {
-
+    activity = null;
   }
 
   @Override
@@ -72,11 +75,10 @@ public class FlutterAndroidSpeechToTextPlugin implements FlutterPlugin, Activity
       Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
       intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
       intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, language);
-      //intent.putExtra(RecognizerIntent.EXTRA_PREFER_OFFLINE, true);
       intent.putExtra(RecognizerIntent.EXTRA_MAX_RESULTS, 1);
 
       if (intent.resolveActivity(context.getPackageManager()) != null) {
-        this.activity.startActivityForResult(intent, 2342);
+        activity.startActivityForResult(intent, 2342);
       } else {
         Toast.makeText(context, "Your Device Don't Support Speech Input", Toast.LENGTH_SHORT).show();
       }
@@ -84,15 +86,18 @@ public class FlutterAndroidSpeechToTextPlugin implements FlutterPlugin, Activity
     }
     result.notImplemented();
   }
+  
 
   @Override
-  public boolean onActivityResult(int requestCode, int resultCode, Intent data) {
-    // Check the request code
+  public void onDetachedFromEngine(@NonNull FlutterPluginBinding binding) {
+    channel.setMethodCallHandler(null);
+  }
+
+  @Override
+  public boolean onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
     if (requestCode == 2342) {
-      // Check the result code
 
       if (resultCode == Activity.RESULT_OK) {
-        // Get the results
         ArrayList<String> hasilList = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
 
         try{
@@ -105,10 +110,5 @@ public class FlutterAndroidSpeechToTextPlugin implements FlutterPlugin, Activity
       }
     }
     return false;
-  }
-
-  @Override
-  public void onDetachedFromEngine(@NonNull FlutterPluginBinding binding) {
-    channel.setMethodCallHandler(null);
   }
 }
