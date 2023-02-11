@@ -98,10 +98,10 @@ public class FlutterAndroidSpeechToTextPlugin implements FlutterPlugin, Activity
     if (requestCode == 2342) {
 
       if (resultCode == Activity.RESULT_OK) {
-        ArrayList<String> hasilList = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+        ArrayList<String> resultList = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
 
         try{
-          flutterResult.success(hasilList.get(0));
+          flutterResult.success(resultList.get(0));
         }catch(Exception e){}
         return true;
         //sendResults();
